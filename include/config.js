@@ -13,3 +13,11 @@ try {
 	console.error(e);
 	process.exit(1);
 }
+
+if ( !module.exports ) module.exports = {};
+
+// Optional environmental overrides.
+if ( process.env.DDWARDEN_DATABASE ) module.exports.DATABASE_FILENAME = process.env.DDWARDEN_DATABASE;
+if ( process.env.DDWARDEN_RFLOW_PORT ) module.exports.RFLOW_PORT = parseInt(process.env.DDWARDEN_RFLOW_PORT);
+if ( process.env.DDWARDEN_MACUPD_PORT ) module.exports.MACUPD_PORT = parseInt(process.env.DDWARDEN_MACUPD_PORT);
+if ( process.env.DDWARDEN_HTTP_PORT ) module.exports.HTTP_PORT = parseInt(process.env.DDWARDEN_HTTP_PORT);

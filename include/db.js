@@ -5,6 +5,7 @@ var fs = require('fs');
 var _ = require('lodash');
 
 console.log("[Boot] Preparing the SQLite3 database...".cyan);
+console.log(("[Boot]  Database location is '" + Config.DATABASE_FILENAME + "'").cyan);
 
 var dbExists = fs.existsSync(Config.DATABASE_FILENAME);
 var db = module.exports = new sqlite3.Database(Config.DATABASE_FILENAME);
