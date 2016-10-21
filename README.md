@@ -21,7 +21,7 @@ You will need a few pieces of information to replace in the following command.
 - TZ={timezone}: Make sure you replace {timezone} with your local, linux-valid timezone, or the logging will be skewed.
 - /database volume: Map this to a local volume of your choice, this is where the sqlite database will be stored.
 
-The ports will be mapped to 8020, 2055, and 2056. You can alter these if you wish, just remember to use the altered ports when configuring your router as well.
+The ports will be mapped to 8020, 2055, and 2056. You can alter these if you wish, just remember to use the altered ports when configuring your router as well. PLEASE Make sure to map 2055 and 2056 as UDP ports or traffic logs will not make it to the server.
 
 ```
 docker run -d --name="DDWarden" -e TZ=America/Los_Angeles -v /docker/ddwarden:/database:rw -v /etc/localtime:/etc/localtime:ro -p 8020:8020 -p 2055:2055/udp -p 2056:2056/udp bthaase/ddwarden
