@@ -5,7 +5,7 @@ FROM node:6
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-COPY package.json /usr/src/app
+COPY package.json /usr/src/app/
 
 # Install our NPM modules from package.json
 RUN npm i --production
