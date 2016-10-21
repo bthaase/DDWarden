@@ -26,7 +26,7 @@ EXPOSE 8020
 ENV DDWARDEN_DATABASE /database/ddwarden.db
 
 # Start the DDWarden Application with Forever.
-CMD ["forever", "/usr/src/app/index.js"]
+CMD ["forever", "index.js"]
 
 # Copy the rest of the application files
 COPY . /usr/src/app
