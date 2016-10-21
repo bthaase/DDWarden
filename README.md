@@ -47,7 +47,7 @@ The configuration file can be located under 'config/config.json' and contains th
 * HTTP_PORT: Which port is the reporting web server on. (Default is 8020)
 * DATABASE_FILENAME: The filename where we want to store our SQLite3 database. (Default is './dd-warden.db')
 
-# Environmental Variables
+## Environmental Variables
 If you wish, you can also override the config.json with environmental variables. They are as follows:
 * DDWARDEN_RFLOW_PORT: Which port is the RFlow listener on. (Default is 2055)
 * DDWARDEN_MACUPD_PORT: Which port is the MACupd listener on. (Default is 2056)
