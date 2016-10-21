@@ -14,7 +14,22 @@ The reporting interface is AngularJS 1.5 and collects information from the Node 
 ## Requirements
 Warden has been tested in NodeJS v5.4.1 and higher. 
 
-## Installation
+## Installing on Docker
+You can install and run DDWarden on a Docker host (including Synology systems with an x86 core) with a minimal of pain and effort.
+
+You will need a few pieces of information to replace in the following command.
+- TZ={timezone}: Make sure you replace {timezone} with your local, linux-valid timezone, or the logging will be skewed.
+- /database volume: Map this to a local volume of your choice, this is where the sqlite database will be stored.
+
+The ports will be mapped to 8020, 2055, and 2056. You can alter these if you wish, just remember to use the altered ports when configuring your router as well.
+
+```
+docker run -d --name="DDWarden" -e TZ=America/Los_Angeles -v /docker/ddwarden:/database:rw -v /etc/localtime:/etc/localtime:ro -p 8020:8020 -p 2055:2055/udp -p 2056:2056/udp bthaase/ddwarden
+```
+
+The latest image can be located on the [Docker Hub](https://hub.docker.com/r/bthaase/ddwarden/).
+
+## Manual Installation
 - Clone the branch to a local directory.
 - In the root application directory, run 'npm install' to download the necessary node modules.
 - Change the database filename or ports in config/config.json (if you so desire - the defaults are usually good)
@@ -31,6 +46,13 @@ The configuration file can be located under 'config/config.json' and contains th
 * MACUPD_PORT: Which port is the MACupd listener on. (Default is 2056)
 * HTTP_PORT: Which port is the reporting web server on. (Default is 8020)
 * DATABASE_FILENAME: The filename where we want to store our SQLite3 database. (Default is './dd-warden.db')
+
+# Environmental Variables
+If you wish, you can also override the config.json with environmental variables. They are as follows:
+* DDWARDEN_RFLOW_PORT: Which port is the RFlow listener on. (Default is 2055)
+* DDWARDEN_MACUPD_PORT: Which port is the MACupd listener on. (Default is 2056)
+* DDWARDEN_HTTP_PORT: Which port is the reporting web server on. (Default is 8020)
+* DDWARDEN_DATABASE: The filename where we want to store our SQLite3 database. (Default is './dd-warden.db')
 
 ## Configuring your Router
 Once the Warden application is running, you will need to change some settings on your DD-WRT Router to forward the netflow traffic to Warden.
