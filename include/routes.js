@@ -152,10 +152,13 @@ route.post("/api/graph", function(req, res) {
 			data[k] = { sent: 0, recv: 0, value: 0, name: moment.unix(i * 60).format("h a") };	
 		}
 	} else if ( mode == "month" ) {
-		for( var i = since; i <= ends; i += (60 *24) ) {
+		var c = moment.unix(since * 60);
+		for ( var d = 1; d <= moment.unix(ends * 60).endOf('month').date(); d++ ) {
+			var i = Math.floor(c.unix() / 60);
 			if ( req.body.includeDay ) data[i] = { sent: 0, recv: 0, value: 0, name: moment.unix(i * 60).format("ddd Do") };	
-			if ( !req.body.includeDay ) data[i] = { sent: 0, recv: 0, value: 0, name: moment.unix(i * 60).format("Do") };	
-		}		
+			if ( !req.body.includeDay ) data[i] = { sent: 0, recv: 0, value: 0, name: moment.unix(i * 60).format("Do") };				
+			c.add(1, 'day');
+		}
 	} else if ( mode == "year" ) {
 		var m = when.startOf('year');
 		for ( var i = 0; i < 12; i++ ) {
@@ -173,7 +176,7 @@ route.post("/api/graph", function(req, res) {
 		if ( mode == "day" ) k = Math.floor(row.stamp / 60);
 		if ( mode == "month" ) k = Math.floor((moment.unix(row.stamp * 60).startOf('day').unix()) / 60);
 		if ( mode == "year" ) k = Math.floor((moment.unix(row.stamp * 60).startOf('month').unix()) / 60);
-		
+				
 		// if ( !data[k] ) data[k] = { value: 0, name: moment.unix(row.stamp * 60).format("h a") };
 		try {
 			data[k].value += row.wanSent;
@@ -181,8 +184,8 @@ route.post("/api/graph", function(req, res) {
 			data[k].sent += row.wanSent;
 			data[k].recv += row.wanRecv;
 		} catch(e) {
-			console.log(data);
-			console.error("FAILED on '" + k + "' in mode " + mode);
+			// console.log(data);
+			console.error("FAILED on '" + k + "' in mode " + mode + " (" + moment.unix(k * 60).format("ddd Do") + ")");
 		}
 	}, function done() {
 		res.send(data);
