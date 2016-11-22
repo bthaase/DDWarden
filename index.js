@@ -5,7 +5,7 @@
  * Released under the GNU General Public License v3.0
  * 
  * @author Brian Haase
- * @version 1.0.0
+ * @version 1.0.1
  */
 var colors = require('colors');
 var sqlite3 = require("sqlite3").verbose();
